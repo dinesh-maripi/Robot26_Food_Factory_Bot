@@ -1,0 +1,6 @@
+Hi {0},
+
+Please find the food factory report for your district - {1} attached.
+
+Thanks & Regards,
+UiPath Bot

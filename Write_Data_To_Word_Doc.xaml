@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Split_DataTable" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:p="http://schemas.uipath.com/workflow/activities/word" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Split_DataTable" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:p="http://schemas.uipath.com/workflow/activities/word" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_list_LocationDT" Type="InArgument(scg:List(sd:DataTable))" />
     <x:Property Name="in_District" Type="InArgument(x:String)" />
@@ -8,10 +8,10 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>639,1814</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>639,2118</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Split_DataTable_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="29">
+    <scg:List x:TypeArguments="x:String" Capacity="58">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -41,10 +41,16 @@
       <x:String>UiPath.Word</x:String>
       <x:String>UiPath.Shared.Activities.Business</x:String>
       <x:String>UiPath.Word.Activities</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="45">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="90">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>System.Private.CoreLib</AssemblyReference>
@@ -90,35 +96,69 @@
       <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Write Data to Word Document" sap:VirtualizedContainerService.HintSize="630,1749" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap2010:Annotation.AnnotationText="Write data to word document  and save as PDF  " DisplayName="Write Data to Word Document" sap:VirtualizedContainerService.HintSize="630,2053" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="TemplateText" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <p:DocumentReadText DisplayName="Read Text" FilePath="Data\Template.docx" sap:VirtualizedContainerService.HintSize="588,92" sap2010:WorkflowViewState.IdRef="DocumentReadText_1" Text="[TemplateText]" />
-    <p:WordApplicationScope DisplayName="Word Application Scope" FilePath="[&quot;Data\&quot;+in_District+&quot;.docx&quot;]" sap:VirtualizedContainerService.HintSize="588,1525" sap2010:WorkflowViewState.IdRef="WordApplicationScope_1">
+    <p:WordApplicationScope DisplayName="Word Application Scope" FilePath="Data\Input\Template.docx" sap:VirtualizedContainerService.HintSize="588,379" sap2010:WorkflowViewState.IdRef="WordApplicationScope_2">
       <p:WordApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WordDocument">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WordDocument" Name="WordDocumentScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="554,1416" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,270" sap2010:WorkflowViewState.IdRef="Sequence_5">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uix:NKeyboardShortcuts DelayBetweenShortcuts="{x:Null}" ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts: Copy Template Text" sap:VirtualizedContainerService.HintSize="334,178" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_1" InScope="[WordDocumentScope]" ScopeIdentifier="WordDocumentScope" Shortcuts="[d(hk)][d(ctrl)]a[u(ctrl)][u(hk)][d(hk)][d(ctrl)]c[u(ctrl)][u(hk)]" Version="V1" />
+          </Sequence>
+        </ActivityAction>
+      </p:WordApplicationScope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </p:WordApplicationScope>
+    <p:WordApplicationScope DisplayName="Word Application Scope" FilePath="[&quot;Data\Output\Docs\&quot;+in_District+&quot;.docx&quot;]" sap:VirtualizedContainerService.HintSize="588,1511" sap2010:WorkflowViewState.IdRef="WordApplicationScope_1">
+      <p:WordApplicationScope.Body>
+        <ActivityAction x:TypeArguments="ui:WordDocument">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="ui:WordDocument" Name="WordDocumentScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="554,1402" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Int32" Name="Index" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <p:WordAppendText DisplayName="Append Text" sap:VirtualizedContainerService.HintSize="512,105" sap2010:WorkflowViewState.IdRef="WordAppendText_1" Text="[TemplateText]" />
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text in Document: with in_District" sap:VirtualizedContainerService.HintSize="512,163" sap2010:WorkflowViewState.IdRef="WordReplaceText_1" Replace="[in_District]" ReplaceAll="True" Search="&lt;DistrictName&gt;">
+            <uix:NKeyboardShortcuts DelayBetweenShortcuts="{x:Null}" ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts: Paste Template Text" sap:VirtualizedContainerService.HintSize="512,51" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_2" InScope="[WordDocumentScope]" ScopeIdentifier="WordDocumentScope" Shortcuts="[d(hk)][d(ctrl)]v[u(ctrl)][u(hk)][d(hk)][k(back)][u(hk)]" Version="V1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NKeyboardShortcuts>
+            <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text in Document: with in_District" sap:VirtualizedContainerService.HintSize="512,163" sap2010:WorkflowViewState.IdRef="WordReplaceText_1" Replace="[in_District.ToUpper]" ReplaceAll="True" Search="&lt;DistrictName&gt;">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -126,33 +166,174 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </p:WordReplaceText>
-            <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text in Document: with  in_LocationCount" sap:VirtualizedContainerService.HintSize="512,163" sap2010:WorkflowViewState.IdRef="WordReplaceText_2" Replace="[in_LocationCount.ToString]" ReplaceAll="True" Search="&lt;TotalLocations&gt;" />
-            <ui:ForEach x:TypeArguments="sd:DataTable" CurrentIndex="[Index]" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="512,773" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_list_LocationDT]">
+            <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text in Document: with  in_LocationCount" sap:VirtualizedContainerService.HintSize="512,51" sap2010:WorkflowViewState.IdRef="WordReplaceText_2" Replace="[in_LocationCount.ToString]" ReplaceAll="False" Search="&lt;TotalLocations&gt;">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </p:WordReplaceText>
+            <ui:ForEach x:TypeArguments="sd:DataTable" CurrentIndex="[Index]" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="512,411" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_list_LocationDT]">
               <ui:ForEach.Body>
                 <ActivityAction x:TypeArguments="sd:DataTable">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="sd:DataTable" Name="LocationDT" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,650" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,288" sap2010:WorkflowViewState.IdRef="Sequence_3">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:RemoveDataRow Row="{x:Null}" DataTable="[LocationDT]" DisplayName="Remove Data Row" sap:VirtualizedContainerService.HintSize="434,185" sap2010:WorkflowViewState.IdRef="RemoveDataRow_1" RowIndex="0">
+                    <p:WordAppendText DisplayName="Append Text" sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="WordAppendText_2" Text="[&quot;Location-&quot;+(Index+1).ToString+&quot;: &quot;+in_Locations.Item(Index)]" />
+                    <p:WordInsertDataTable Bookmark="{x:Null}" OccurrenceIndex="{x:Null}" Text="{x:Null}" DataTable="[LocationDT]" DisplayName="Insert DataTable in Document: LocationDT" sap:VirtualizedContainerService.HintSize="434,51" sap2010:WorkflowViewState.IdRef="WordInsertDataTable_2" InsertRelativeTo="Document" Position="End">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                    </ui:RemoveDataRow>
-                    <p:WordAppendText DisplayName="Append Text" sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="WordAppendText_2" Text="[&quot;Location-&quot;+(Index+1).ToString+&quot;: &quot;+in_Locations.Item(Index)]" />
-                    <p:WordInsertDataTable Bookmark="{x:Null}" OccurrenceIndex="{x:Null}" Text="{x:Null}" DataTable="[LocationDT]" DisplayName="Insert DataTable in Document: LocationDT" sap:VirtualizedContainerService.HintSize="434,188" sap2010:WorkflowViewState.IdRef="WordInsertDataTable_2" InsertRelativeTo="Document" Position="End" />
+                    </p:WordInsertDataTable>
                   </Sequence>
                 </ActivityAction>
               </ui:ForEach.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:ForEach>
+            <uix:NKeyboardShortcuts DelayBetweenShortcuts="{x:Null}" ActivateBefore="True" ClickBeforeMode="None" DisplayName="Keyboard Shortcuts" sap:VirtualizedContainerService.HintSize="512,51" sap2010:WorkflowViewState.IdRef="NKeyboardShortcuts_5" InScope="[WordDocumentScope]" ScopeIdentifier="WordDocumentScope" Shortcuts="[d(hk)][d(ctrl)]a[u(ctrl)][u(hk)][d(hk)][d(ctrl)d(shift)]f[u(shift)u(ctrl)][u(hk)]" Version="V1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NKeyboardShortcuts>
+            <uix:NSelectItem DisplayName="Select Item: Font - Cambria" sap:VirtualizedContainerService.HintSize="512,51" sap2010:WorkflowViewState.IdRef="NSelectItem_5" InScope="[WordDocumentScope]" Item="Cambria" ScopeIdentifier="WordDocumentScope" Version="V1">
+              <uix:NSelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="50">
+                  <x:String>Bahnschrift SemiLight Condensed</x:String>
+                  <x:String>Bahnschrift SemiLight SemiConde</x:String>
+                  <x:String>Baskerville Old Face</x:String>
+                  <x:String>Bauhaus 93</x:String>
+                  <x:String>Bell MT</x:String>
+                  <x:String>Berlin Sans FB</x:String>
+                  <x:String>Berlin Sans FB Demi</x:String>
+                  <x:String>Bernard MT Condensed</x:String>
+                  <x:String>Blackadder ITC</x:String>
+                  <x:String>Bodoni MT</x:String>
+                  <x:String>Bodoni MT Black</x:String>
+                  <x:String>Bodoni MT Condensed</x:String>
+                  <x:String>Bodoni MT Poster Compressed</x:String>
+                  <x:String>Book Antiqua</x:String>
+                  <x:String>Bookman Old Style</x:String>
+                  <x:String>Bookshelf Symbol 7</x:String>
+                  <x:String>Bradley Hand ITC</x:String>
+                  <x:String>Britannic Bold</x:String>
+                  <x:String>Broadway</x:String>
+                  <x:String>Brush Script MT</x:String>
+                  <x:String>Calibri</x:String>
+                  <x:String>Calibri Light</x:String>
+                  <x:String>Californian FB</x:String>
+                  <x:String>Calisto MT</x:String>
+                  <x:String>Cambria</x:String>
+                  <x:String>Cambria Math</x:String>
+                  <x:String>Candara</x:String>
+                  <x:String>Candara Light</x:String>
+                  <x:String>Cascadia Code</x:String>
+                  <x:String>Cascadia Code ExtraLight</x:String>
+                  <x:String>Cascadia Code Light</x:String>
+                  <x:String>Cascadia Code PL</x:String>
+                  <x:String>Cascadia Code PL ExtraLight</x:String>
+                  <x:String>Cascadia Code PL Light</x:String>
+                  <x:String>Cascadia Code PL SemiBold</x:String>
+                  <x:String>Cascadia Code PL SemiLight</x:String>
+                  <x:String>Cascadia Code SemiBold</x:String>
+                  <x:String>Cascadia Code SemiLight</x:String>
+                  <x:String>Cascadia Mono</x:String>
+                  <x:String>Cascadia Mono ExtraLight</x:String>
+                  <x:String>Cascadia Mono Light</x:String>
+                  <x:String>Cascadia Mono PL</x:String>
+                  <x:String>Cascadia Mono PL ExtraLight</x:String>
+                  <x:String>Cascadia Mono PL Light</x:String>
+                  <x:String>Cascadia Mono PL SemiBold</x:String>
+                  <x:String>Cascadia Mono PL SemiLight</x:String>
+                  <x:String>Cascadia Mono SemiBold</x:String>
+                  <x:String>Cascadia Mono SemiLight</x:String>
+                  <x:String>Castellar</x:String>
+                  <x:String>Centaur</x:String>
+                </scg:List>
+              </uix:NSelectItem.Items>
+              <uix:NSelectItem.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="40, 181, 208, 14" FriendlyName="'Cambria'" FullSelectorArgument="&lt;ctrl name='Cambria' role='list item' /&gt;" FuzzySelectorArgument="&lt;ctrl name='Cambria' role='list item' automationid='' check:text='Cambria' /&gt;" Guid="625999aa-3b18-4ef5-961a-4bef26f8350a" InformativeScreenshot="4e28bf63799f621488de49c3e2e5bd50.png" ScopeSelectorArgument="&lt;wnd app='winword.exe' cls='bosa_sdm_msword' title='Font' /&gt;" SearchSteps="Selector, FuzzySelector" Visibility="Interactive" />
+              </uix:NSelectItem.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NSelectItem>
+            <uix:NSelectItem DisplayName="Select Item: Font Size - 14" sap:VirtualizedContainerService.HintSize="512,51" sap2010:WorkflowViewState.IdRef="NSelectItem_6" InScope="[WordDocumentScope]" Item="14" ScopeIdentifier="WordDocumentScope" Version="V1">
+              <uix:NSelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="16">
+                  <x:String>8</x:String>
+                  <x:String>9</x:String>
+                  <x:String>10</x:String>
+                  <x:String>11</x:String>
+                  <x:String>12</x:String>
+                  <x:String>14</x:String>
+                  <x:String>16</x:String>
+                  <x:String>18</x:String>
+                  <x:String>20</x:String>
+                  <x:String>22</x:String>
+                  <x:String>24</x:String>
+                  <x:String>26</x:String>
+                  <x:String>28</x:String>
+                  <x:String>36</x:String>
+                  <x:String>48</x:String>
+                  <x:String>72</x:String>
+                </scg:List>
+              </uix:NSelectItem.Items>
+              <uix:NSelectItem.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="348, 177, 62, 13" FriendlyName="'14'" FullSelectorArgument="&lt;ctrl name='14' role='list item' /&gt;" FuzzySelectorArgument="&lt;ctrl name='14' role='list item' automationid='' check:text='14' /&gt;" Guid="7ffdd890-c1c3-43b4-a5ab-9c2de5dc0ff3" InformativeScreenshot="7758127e4f7f2a83c7584b6f59013ed6.png" ScopeSelectorArgument="&lt;wnd app='winword.exe' cls='bosa_sdm_msword' title='Font' /&gt;" SearchSteps="Selector, FuzzySelector" Visibility="Interactive">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                      <uix:Target DesignTimeRectangle="348, 89, 23, 13" ElementType="Text" FriendlyName="'Size'" FullSelectorArgument="&lt;ctrl name='Size:' role='text' /&gt;" FuzzySelectorArgument="&lt;ctrl name='Size:' role='text' automationid='' check:text='Size:' /&gt;" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAABsAAAARCAYAAAAsT9czAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC3SURBVEhL7ZLtEYMgDIZZKwuxTrZxGYZJiUC+tNpepf7xvYunmPAkLyT6ox7YJboRtmRKKfUAwrIuUk65Pn+XwgoSCGCOAmxvAp6sNVEQzOQ18sjmnLDGLsn/Jmfj2MznKEzlrV3yqCmE0HPPYE29S8BaOr49TDdnmal6BIZoB8biDkdRgG063jbzTl/C+D2ea8uFSDu0cb0gxg5JVBjbZ+0Sq11tb+azM5sngbmOTVypeyabL6IXm+B2U1ITJtIAAAAASUVORK5CYII=" SearchSteps="Selector, FuzzySelector, Image" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NSelectItem.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NSelectItem>
+            <uix:NClick ClickType="Single" DisplayName="Click: OK" sap:VirtualizedContainerService.HintSize="512,51" sap2010:WorkflowViewState.IdRef="NClick_2" InScope="[WordDocumentScope]" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="WordDocumentScope" Version="V1">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="259, 478, 76, 24" ElementType="Button" FriendlyName="'OK'" FullSelectorArgument="&lt;ctrl name='OK' role='push button' /&gt;" FuzzySelectorArgument="&lt;ctrl name='OK' role='push button' automationid='' check:text='OK' /&gt;" Guid="759be1e4-bbff-4828-bf76-49a817caabd0" ImageBase64="iVBORw0KGgoAAAANSUhEUgAAAFAAAAAcCAYAAAD2izi6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD8SURBVGhD7dbBDcIwDIXhzJRxMgmnzJJVMgXnbpANTK3SNKYpKlhKXekdfoGpT58CwZVSCP0fAJUBUJkAdI8nOpEwE0NnGe0TZmJ4L0zThDoBUBkAlQFQGQCV2QZMgZxzNR9z8zxRcJ5iXuYU5p2QmudjMguYo5/RAqX6WaboW6QGkKEvwOOMAjLWdrpqOZKvqCsgv7bQY7MJKKDallMYEr9fAH0PemA3BFzBGLD32zg2m4AfF0Tt8Ct83Sk0Cnh8iWynrYHjS8RHynV3XGYBuQXxh78xFyCaBrxDAFQGQGUAVAZAZacB0feEmRg6y2ifMGsH9HsAVAZAVYVe2HznZrZCm7MAAAAASUVORK5CYII=" InformativeScreenshot="3ccedc6bd1aeec4769da99d3b38979af.png" ScopeSelectorArgument="&lt;wnd app='winword.exe' cls='bosa_sdm_msword' title='Font' /&gt;" SearchSteps="Selector, FuzzySelector, Image" Visibility="Interactive" />
+              </uix:NClick.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NClick>
+            <p:WordExportToPdf DisplayName="Save Document as PDF" FilePath="[&quot;Data\Output\PDFs\&quot;+in_District+&quot;.pdf&quot;]" sap:VirtualizedContainerService.HintSize="512,110" sap2010:WorkflowViewState.IdRef="WordExportToPdf_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </p:WordExportToPdf>
           </Sequence>
         </ActivityAction>
       </p:WordApplicationScope.Body>
